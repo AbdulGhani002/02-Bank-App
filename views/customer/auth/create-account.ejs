@@ -1,0 +1,32 @@
+<%- include('../../shared/includes/head' , {title:"Create Account - Moneyhub"})%>
+<link rel="stylesheet" href="/styles/auth.css">
+  </head>
+  <body>
+   <%- include("../../shared/includes/header")%>
+   <main>
+       <h1>Create New Account</h1>
+       <form action="/create-account" method="POST">
+        <label for="fullname">Full Name: </label>
+        <input type="text" name="fullname" id="fullname" required>
+        <label for="birthday">Date of Birth: </label>
+        <input type="date" name="birthday" id="birthday" required>
+        <label for="street">Street: </label>
+        <input type="text" name="street" id="street" required>
+        <label for="city">City: </label>
+        <input type="text" name="city" id="city" required>
+        <label for="postal-code">Postal Code: </label>
+        <input type="number" name="postal-code" id="postal-code" minlength="5" maxlength="5" required>
+        <center>
+          <hr>
+        </center>
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" required>
+        <label for="password">Set Password: </label>
+        <input type="password" name="password" id="password" minlength="8" required>
+        <label for="confirm-password">Confirm Password: </label>
+        <input type="password" name="confirm-password" id="confirm-password" required>
+        <button>Create New Account</button>
+       </form>
+       <p>Or <a href="/login">Login Instead</a></p>
+    </main>
+<%- include("../../shared/includes/footer")%>

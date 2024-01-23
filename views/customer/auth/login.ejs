@@ -1,0 +1,17 @@
+<%- include('../../shared/includes/head' , {title:"Login - MoneyHub"})%>
+<link rel="stylesheet" href="/styles/auth.css">
+  </head>
+  <body>
+   <%- include("../../shared/includes/header")%>
+   <main>
+       <h1>Login</h1>
+       <form action="/login" method="POST">
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" required>
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" minlength="8" required>
+        <button>Login</button>
+       </form>
+       <p>Or <a href="/create-account">Create new account</a> instead.</p>
+    </main>
+<%- include("../../shared/includes/footer")%>
