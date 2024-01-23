@@ -1,14 +1,15 @@
 const User = require("../models/user.model");
+const db = require("../data/database");
 
 const addAccount = async (req, res) => {
   const user = new User(
+    req.body.email,
+    req.body.password,
     req.body.fullname,
     req.body.birthday,
     req.body.street,
     req.body.city,
-    req.body.postalCode,
-    req.body.email,
-    req.body.password
+    req.body.postalCode
   );
   try {
     const alreadyExists = await user.userAlreadyExists();
@@ -24,27 +25,20 @@ const addAccount = async (req, res) => {
 
 const login = async (req, res) => {
   const user = new User(req.body.email, req.body.password);
-  let existingUser;
+
   try {
-    existingUser = await user.getUserWithSameEmail();
+    const authenticatedUser = await user.login();
+
+    if (authenticatedUser) {
+      console.log("Authenticated:", authenticatedUser);
+      return res.redirect("/");
+    } else {
+      console.log("Incorrect password or user not found");
+      return res.redirect("/login");
+    }
   } catch (error) {
-    return console.log(error);
-  }
-  if (!existingUser) {
+    console.error("Error during login:", error);
     return res.redirect("/login");
-  }
-
-  let isPasswordCorrect = await user.hasMatchingPassword(
-    req.body.password,
-    existingUser.password
-  );
-
-  if (!isPasswordCorrect) {
-    return res.redirect("/login");
-  }
-  if (isPasswordCorrect && existingUser) {
-    console.log("authenticated");
-    return res.redirect("/");
   }
 };
 

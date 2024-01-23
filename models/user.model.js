@@ -2,7 +2,9 @@ const bcrypt = require("bcryptjs");
 const db = require("../data/database");
 
 class User {
-  constructor(fullname, birthday, street, city, postalCode, email, password) {
+  constructor(email, password, fullname, birthday, street, city, postalCode) {
+    this.email = email;
+    this.password = password;
     this.name = fullname;
     this.birthday = birthday;
     this.address = {
@@ -10,11 +12,9 @@ class User {
       city: city,
       postalCode: postalCode,
     };
-    this.email = email;
-    this.password = password;
   }
 
-  getUserWithSameEmail() {
+  async getUserWithSameEmail() {
     return db.getDb().collection("users").findOne({ email: this.email });
   }
 
@@ -52,14 +52,20 @@ class User {
   }
 
   async login() {
-    return await db
+
+    const user = await db
       .getDb()
       .collection("Accounts")
       .findOne({ email: this.email });
-  }
 
-  hasMatchingPassword(hashedPassword) {
-    return bcrypt.compare(this.password, hashedPassword);
+    if (!user) {
+      return null;
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(this.password, user.password);
+
+
+    return isPasswordCorrect ? user : null;
   }
 }
 
