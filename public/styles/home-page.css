@@ -1,0 +1,26 @@
+main {
+  margin: 0;
+  width: 100%;
+}
+
+main ul#home-page-menu {
+  display: grid;
+  list-style-type: none;
+  grid-template-columns: 1fr 1fr;
+}
+
+main ul#home-page-menu li a {
+  font-size: 1.5rem;
+  color: var(--color-primary-500-contrast);
+  margin-bottom: 1.5rem;
+}
+
+main ul#home-page-menu li a:hover {
+  color: var(--color-primary-900);
+}
+
+main ul#home-page-menu li a img {
+  margin: 1rem;
+  height: 5rem;
+  filter: invert(100%);
+}

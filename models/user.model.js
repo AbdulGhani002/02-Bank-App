@@ -52,7 +52,6 @@ class User {
   }
 
   async login() {
-
     const user = await db
       .getDb()
       .collection("Accounts")
@@ -62,8 +61,10 @@ class User {
       return null;
     }
 
-    const isPasswordCorrect = await bcrypt.compare(this.password, user.password);
-
+    const isPasswordCorrect = await bcrypt.compare(
+      this.password,
+      user.password
+    );
 
     return isPasswordCorrect ? user : null;
   }

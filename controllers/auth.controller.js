@@ -1,5 +1,12 @@
 const User = require("../models/user.model");
-const db = require("../data/database");
+
+const getSignUp = (req, res) => {
+  res.render("customer/auth/create-account");
+};
+
+const getLogin = (req, res) => {
+  res.render("customer/auth/login");
+};
 
 const addAccount = async (req, res) => {
   const user = new User(
@@ -31,7 +38,7 @@ const login = async (req, res) => {
 
     if (authenticatedUser) {
       console.log("Authenticated:", authenticatedUser);
-      return res.redirect("/");
+      return res.redirect("/home");
     } else {
       console.log("Incorrect password or user not found");
       return res.redirect("/login");
@@ -43,6 +50,8 @@ const login = async (req, res) => {
 };
 
 module.exports = {
+  getSignUp: getSignUp,
   addAccount: addAccount,
   login: login,
+  getLogin: getLogin,
 };

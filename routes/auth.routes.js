@@ -3,12 +3,8 @@ const authController = require("../controllers/auth.controller");
 
 const router = express.Router();
 
-router.get("/create-account", (req, res) => {
-  res.render("customer/auth/create-account");
-});
-router.get("/login", (req, res) => {
-  res.render("customer/auth/login");
-});
+router.get("/create-account", authController.getSignUp);
+router.get("/login", authController.getLogin);
 router.post("/create-account", authController.addAccount);
 
 router.post("/login", authController.login);
