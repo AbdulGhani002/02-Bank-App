@@ -15,7 +15,7 @@ html {
   --color-primary-400: rgb(223, 159, 41);
   --color-primary-500: rgb(212, 136, 14);
   --color-primary-700: rgb(212, 120, 14);
-  --color-primary-900: rgb(245, 127, 0);
+  --color-primary-900: rgb(255, 153, 0);
   --color-primary-900-contrast: rgb(128, 128, 128);
   --color-primary-200-contrast: rgb(100, 46, 2);
   --color-primary-500-contrast: white;
@@ -82,6 +82,8 @@ header nav ul li a {
 header #yellow-background-logo {
   background-color: var(--color-primary-900);
   color: var(--color-gray-900);
+  border-radius: 0.25rem;
+  padding-left: .25rem;
 }
 header nav ul li a:hover {
   color: var(--color-primary-900);
