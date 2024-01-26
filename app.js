@@ -5,6 +5,8 @@ const db = require("./data/database");
 const baseRoutes = require("./routes/base.routes");
 const authRoutes = require("./routes/auth.routes");
 
+const errorHandlerMiddleware = require("./middlewares/error-handler");
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -15,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(baseRoutes);
 app.use(authRoutes);
+app.use(errorHandlerMiddleware);
 
 db.connectToDatabase()
   .then(() => {
