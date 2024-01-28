@@ -1,11 +1,12 @@
-<%- include('../../shared/includes/head' , {title:"Create Account - Moneyhub"})%>
+<%- include('../../shared/includes/head' , {title:"Create Account - Moneyhub"}) %>
 <link rel="stylesheet" href="/styles/auth.css">
-  </head>
-  <body>
-   <%- include("../../shared/includes/header")%>
-   <main>
-       <h1>Create New Account</h1>
-       <form action="/create-account" method="POST">
+</head>
+<body>
+<%- include("../../shared/includes/header") %>
+<main>
+    <h1>Create New Account</h1>
+    <form action="/create-account" method="POST">
+        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
         <label for="fullname">Full Name: </label>
         <input type="text" name="fullname" id="fullname" required>
         <label for="birthday">Date of Birth: </label>
@@ -17,7 +18,7 @@
         <label for="postalCode">Postal Code: </label>
         <input type="number" name="postalCode" id="postalCode" minlength="5" maxlength="5" required>
         <center>
-          <hr>
+            <hr>
         </center>
         <label for="email">Email: </label>
         <input type="email" name="email" id="email" required>
@@ -26,7 +27,7 @@
         <label for="confirm-password">Confirm Password: </label>
         <input type="password" name="confirm-password" id="confirm-password" required>
         <button>Create New Account</button>
-       </form>
-       <p>Or <a href="/login">Login Instead</a></p>
-    </main>
-<%- include("../../shared/includes/footer")%>
+    </form>
+    <p>Or <a href="/login">Login Instead</a></p>
+</main>
+<%- include("../../shared/includes/footer") %>
