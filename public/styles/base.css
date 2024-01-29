@@ -83,7 +83,7 @@ header #yellow-background-logo {
   background-color: var(--color-primary-900);
   color: var(--color-gray-900);
   border-radius: 0.25rem;
-  padding-left: .25rem;
+  padding-left: 0.25rem;
 }
 header nav ul li a:hover {
   color: var(--color-primary-900);
@@ -107,7 +107,8 @@ main a {
   text-decoration: none;
 }
 
-main a#new-account-button ,button{
+main a#new-account-button,
+button {
   color: var(--color-primary-500-contrast);
   text-decoration: none;
   padding: 0.5rem;
@@ -117,10 +118,27 @@ main a#new-account-button ,button{
   border-radius: 0.5rem;
 }
 
-main a#new-account-button:hover ,button{
+main a#new-account-button:hover,
+button {
   background-color: var(--color-primary-700);
 }
 
 main p a:hover {
   color: var(--color-primary-700);
+}
+.alert {
+  border-radius: var(--border-radius-small);
+  background-color: var(--color-error-100);
+  color: var(--color-error-500);
+  padding: var(--space-4);
+}
+
+.alert h2 {
+  font-size: 1rem;
+  margin: var(--space-2) 0;
+  text-transform: uppercase;
+}
+
+.alert p {
+  margin: var(--space-2) 0;
 }

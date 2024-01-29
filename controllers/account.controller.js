@@ -1,13 +1,13 @@
 const logger = require("../utils/logger");
 const User = require("../models/user.model");
 const Account = require("../models/account.model");
+const sessionFlash = require("../utils/session-flash");
 
 async function createUserAndAccount(req, res) {
   const { email, password, fullname, birthday, street, city, postalCode } =
     req.body;
 
   try {
-
     const newUser = new User(
       email,
       password,
@@ -20,31 +20,28 @@ async function createUserAndAccount(req, res) {
 
     const userExists = await newUser.userAlreadyExists();
     if (userExists) {
-      return res
-        .status(400)
-        .json({ success: false, message: "User already exists" });
+      sessionFlash.flashDataToSession(req, {
+        errorMessage: "User already exists",
+      });
+      return res.redirect("/signup");
     }
 
     const signupResult = await newUser.signup();
     if (!signupResult.success) {
-      return res
-        .status(500)
-        .json({ success: false, message: signupResult.message });
+      sessionFlash.flashDataToSession(req, {
+        errorMessage: signupResult.message || "Error during signup",
+      });
+      return res.redirect("/signup");
     }
 
-
     const createdUser = await newUser.getUserByEmail(email);
-
     logger.info("Created user:", {
       userId: createdUser.userId,
       email: createdUser.email,
     });
 
-
     if (createdUser && createdUser.userId) {
-
       const newAccount = new Account(createdUser.userId, 500);
-
       logger.info("New account data:", {
         accountId: newAccount.accountId,
         accountNumber: newAccount.accountNumber,
@@ -53,22 +50,23 @@ async function createUserAndAccount(req, res) {
 
       await newAccount.createBankAccount();
 
-      return res.status(201).json({
-        success: true,
-        message: "User and account created successfully",
+      sessionFlash.flashDataToSession(req, {
+        successMessage: "User and account created successfully",
       });
-    } else {
 
-      return res
-        .status(500)
-        .json({ success: false, message: "Error creating user account" });
+      return res.redirect("/login");
+    } else {
+      sessionFlash.flashDataToSession(req, {
+        errorMessage: "Error creating user account",
+      });
+      return res.redirect("/signup");
     }
   } catch (error) {
-
     logger.error("Error during user and account creation:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
+    sessionFlash.flashDataToSession(req, {
+      errorMessage: "Internal Server Error",
+    });
+    return res.redirect("/signup");
   }
 }
 

@@ -24,7 +24,6 @@ class User {
       const existingUser = await this.getUserByEmail(this.email);
       return !!existingUser;
     } catch (error) {
-      console.error("Error checking if user exists:", error);
       throw new Error("Error checking if user exists");
     }
   }
@@ -51,9 +50,12 @@ class User {
 
       return { success: true };
     } catch (error) {
-      console.error("Error during signup:", error);
       throw new Error("Internal Server Error");
     }
+  }
+
+  hasMatchingPassword(hashedPassword) {
+    return bcrypt.compare(this.password, hashedPassword);
   }
 }
 

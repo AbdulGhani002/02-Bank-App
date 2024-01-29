@@ -5,8 +5,15 @@
 <%- include("../../shared/includes/header") %>
 <main>
     <h1>Login</h1>
+    <% if (inputData.errorMessage) { %>
+        <section class="alert">
+          <h2>Invalid Credentials</h2>
+          <p><%= inputData.errorMessage %></p>
+        </section>
+      <% } %>
     <form action="/login" method="POST">
-        <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+      <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+      <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
         <label for="email">Email: </label>
         <input type="email" name="email" id="email" required>
         <label for="password">Password: </label>
